@@ -1,0 +1,16 @@
+// tsconfig.node.json (Corrected)
+
+{
+  "compilerOptions": {
+    "composite": true,
+    "skipLibCheck": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowSyntheticDefaultImports": true,
+
+    // --- THIS IS THE FIX FOR THE FIRST ERROR ---
+    // Allows default imports from modules that use CommonJS exports.
+    "esModuleInterop": true
+  },
+  "include": ["vite.config.ts", "tailwind.config.ts"] // Ensure your config files are included
+}
