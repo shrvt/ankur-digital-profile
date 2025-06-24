@@ -32,7 +32,6 @@ const Index = () => {
       <HeroSection />
 
       {/*
-        THIS IS THE FIX:
         A new wrapper div that controls all the spacing between sections.
         'space-y-20' adds a 5rem (80px) margin-top between each section.
         'md:space-y-28' increases that to 7rem (112px) on medium screens.

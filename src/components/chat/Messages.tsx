@@ -1,3 +1,5 @@
+// src/components/chat/Messages.tsx (Final Code)
+
 import { MessageSquare } from 'lucide-react';
 import { ChatMessage } from './ChatMessage';
 import { useEffect, useRef } from 'react';
@@ -26,7 +28,7 @@ export const Messages = ({
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }
-  }, [messages]);
+  }, [messages, isSending]);
 
   return (
     <div
@@ -54,15 +56,33 @@ export const Messages = ({
           />
         </div>
       ))}
+
       {isSending && (
-        <div className="flex items-start gap-2">
-          <div className="animate-pulse flex space-x-2 py-2">
-            <div className="h-2 w-2 bg-muted-foreground/40 rounded-full"></div>
-            <div className="h-2 w-2 bg-muted-foreground/40 rounded-full"></div>
-            <div className="h-2 w-2 bg-muted-foreground/40 rounded-full"></div>
+        <div className="flex items-end gap-2">
+          {/* Avatar */}
+          <div className="bg-muted/50 rounded-full p-2 h-8 w-8 flex items-center justify-center shrink-0">
+            <MessageSquare className="h-4 w-4" />
+          </div>
+          {/* Bubble with pulsing dots */}
+          <div className="bg-secondary rounded-lg px-4 py-3">
+            <div className="animate-pulse flex space-x-1.5">
+              <div
+                className="h-2 w-2 bg-primary rounded-full"
+                style={{ animationDelay: '0s' }}
+              ></div>
+              <div
+                className="h-2 w-2 bg-primary rounded-full"
+                style={{ animationDelay: '0.2s' }}
+              ></div>
+              <div
+                className="h-2 w-2 bg-primary rounded-full"
+                style={{ animationDelay: '0.4s' }}
+              ></div>
+            </div>
           </div>
         </div>
       )}
+
       <div ref={messagesEndRef} />
     </div>
   );

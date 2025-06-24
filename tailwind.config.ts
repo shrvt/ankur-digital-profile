@@ -1,8 +1,5 @@
-// tailwind.config.ts (Corrected)
-
 import type { Config } from 'tailwindcss';
 import defaultTheme from 'tailwindcss/defaultTheme';
-// --- THIS IS THE FIX FOR THE SECOND ERROR (PART 1) ---
 // We import the plugin using modern ES Module syntax.
 import tailwindcssAnimate from 'tailwindcss-animate';
 
@@ -99,7 +96,6 @@ export default {
       },
     },
   },
-  // --- THIS IS THE FIX FOR THE SECOND ERROR (PART 2) ---
   // We use the imported variable instead of require().
   plugins: [tailwindcssAnimate],
 } satisfies Config;

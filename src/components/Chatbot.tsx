@@ -1,3 +1,5 @@
+// Chatbot.tsx (Final Code)
+
 import { useState, useRef, useEffect } from 'react';
 import { MessageSquare } from 'lucide-react';
 import { Button } from './ui/button';
@@ -14,7 +16,7 @@ interface Message {
 }
 
 const WEBHOOK_URL =
-  'http://localhost:5678/webhook/2baf8717-6f35-4a23-84dc-93b1054e49a1/chat';
+  'https://n8n.shrivastava.de/webhook/9faf7407-4802-42d3-a323-682ed4fc30ad';
 
 const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -78,9 +80,21 @@ const Chatbot = () => {
 
       const data = await response.json();
 
+      // 1. Log the raw data to the console for easy debugging.
+      console.log('Webhook response data:', data);
+
+      // 2. Intelligently parse the response text from common keys.
+      // n8n often wraps data in a 'json' key.
+      const responseData = data.json || data;
+      const replyText =
+        responseData.reply ||
+        responseData.text ||
+        responseData.message ||
+        "Thanks for your message! I'll get back to you soon.";
+
+      // 3. Create the bot response with the correctly parsed text.
       const botResponse = {
-        text:
-          data.reply || "Thanks for your message! I'll get back to you soon.",
+        text: replyText,
         sender: 'bot' as const,
         timestamp: new Date(),
       };
@@ -94,13 +108,11 @@ const Chatbot = () => {
         variant: 'destructive',
       });
 
-      // Fallback response in case of error
       const errorResponse = {
         text: "I'm having trouble connecting right now. Please try again later.",
         sender: 'bot' as const,
         timestamp: new Date(),
       };
-
       setMessages((prev) => [...prev, errorResponse]);
     } finally {
       setIsSending(false);

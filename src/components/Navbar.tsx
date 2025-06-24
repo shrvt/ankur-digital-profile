@@ -1,5 +1,3 @@
-// Navbar.tsx (Corrected)
-
 import { useEffect, useState } from 'react';
 import { Download, Menu, X } from 'lucide-react';
 import ThemeToggle from './ThemeToggle';
